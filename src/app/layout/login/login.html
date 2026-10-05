@@ -1,0 +1,132 @@
+<div class="login-page" dir="rtl">
+  <div class="logo">
+    <img src="../../../assets/images/login_Logo.png" alt="" />
+  </div>
+  <div class="login-card">
+    <!-- Logo / Title -->
+    <div class="text-end mb-1">
+      <h3 class="mt-3">تسجيل الدخول</h3>
+
+      <p class="text-muted">سجل الدخول لإدارة أعمالك هنا</p>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <!-- =========================
+           Financial Year
+      ========================== -->
+      <div class="mb-3">
+        <label class="form-label"> السنة المالية </label>
+
+        <select
+          class="form-select"
+          formControlName="financialYear"
+          [class.is-invalid]="
+            loginForm.get('financialYear')?.invalid && loginForm.get('financialYear')?.touched
+          "
+        >
+          <option value="" disabled>اختر السنة المالية</option>
+          @for (year of financialYears; track year.id) {
+            <option [value]="year.id">
+              {{ year.name }}
+            </option>
+          }
+        </select>
+
+        @if (loginForm.get('financialYear')?.invalid && loginForm.get('financialYear')?.touched) {
+          <div class="invalid-feedback">برجاء اختيار السنة المالية</div>
+        }
+      </div>
+
+      <!-- =========================
+           Email / Admin
+      ========================== -->
+      <div class="mb-1">
+        <label class="form-label"> البريد الإلكتروني / Admin </label>
+
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="أدخل البريد الإلكتروني أو اسم المستخدم"
+          [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+        />
+
+        @if (loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')) {
+          <div class="invalid-feedback">البريد الإلكتروني أو اسم المستخدم مطلوب</div>
+        }
+
+        @if (loginForm.get('email')?.touched && loginForm.get('email')?.hasError('email')) {
+          <div class="invalid-feedback">برجاء إدخال بريد إلكتروني صحيح</div>
+        }
+      </div>
+
+      <!-- =========================
+           Password
+      ========================== -->
+      <div class="mb-1">
+        <label class="form-label"> كلمة المرور </label>
+
+        <div class="password-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            class="form-control password-input"
+            formControlName="password"
+            placeholder="أدخل كلمة المرور"
+            [class.is-invalid]="
+              loginForm.get('password')?.invalid && loginForm.get('password')?.touched
+            "
+          />
+
+          <!-- Show / Hide Password -->
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="showPassword = !showPassword"
+            [attr.aria-label]="showPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'"
+          >
+            <i
+              class="fa-solid"
+              [class.fa-eye]="!showPassword"
+              [class.fa-eye-slash]="showPassword"
+            ></i>
+          </button>
+        </div>
+
+        @if (
+          loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')
+        ) {
+          <div class="invalid-feedback d-block">كلمة المرور مطلوبة</div>
+        }
+
+        @if (
+          loginForm.get('password')?.touched && loginForm.get('password')?.hasError('minlength')
+        ) {
+          <div class="invalid-feedback d-block">كلمة المرور يجب أن تكون 6 أحرف على الأقل</div>
+        }
+      </div>
+
+      <!-- =========================
+           Remember Me
+      ========================== -->
+      <div class="form-check mb-2 d-flex gap-5" dir="rtl">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="rememberMe"
+          formControlName="rememberMe"
+        />
+
+        <label class="form-check-label" for="rememberMe"> تذكرني </label>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary w-100"
+        [disabled]="loginForm.invalid || isLoading"
+      >
+        {{ isLoading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول' }}
+      </button>
+    </form>
+  </div>
+</div>

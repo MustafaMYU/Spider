@@ -1,0 +1,460 @@
+<div class="categore-cont container-fluid py-3" dir="rtl">
+  <!-- =====================================================
+       Header
+  ====================================================== -->
+
+  <div class="headTree d-flex align-items-center justify-content-between gap-3 mb-4">
+    <h5 class="title fw-bold mb-0 page-title">
+      <i class="fa-solid fa-sitemap"></i>
+      شجرة الحسابات
+    </h5>
+
+    <!-- Buttons -->
+    <div class="button-group d-flex align-items-center gap-3">
+      <!-- Submit / Add -->
+      <button type="submit" form="accountForm" class="btn addButton addtree">
+        <span>+</span>
+        إضافة
+      </button>
+
+      <!-- New -->
+      <button type="button" class="btn newButton newtree" (click)="resetForm()">جديد</button>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       Search
+  ====================================================== -->
+
+  <div class="search-box position-relative">
+    <input type="text" class="form-control search-input" [placeholder]="searchPlaceholder" />
+
+    <!-- Search Icon -->
+    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+
+    <!-- Search Type Dropdown -->
+    <div class="search-type-dropdown">
+      <button type="button" class="search-type-button" (click)="searchTypeOpen = !searchTypeOpen">
+        <i class="fa-solid fa-bars"></i>
+
+        <i
+          class="fa-solid"
+          [class.fa-chevron-down]="!searchTypeOpen"
+          [class.fa-chevron-up]="searchTypeOpen"
+        ></i>
+      </button>
+
+      @if (searchTypeOpen) {
+        <div class="search-type-menu">
+          <button
+            type="button"
+            [class.active]="searchType === 'code'"
+            (click)="selectSearchType('code')"
+          >
+            بحث رقم الحساب
+          </button>
+
+          <button
+            type="button"
+            [class.active]="searchType === 'name'"
+            (click)="selectSearchType('name')"
+          >
+            اسم الحساب
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- =====================================================
+       Account Form
+  ====================================================== -->
+
+  <form id="accountForm" [formGroup]="accountForm" (ngSubmit)="submit()" novalidate>
+    <div class="acount-body container-fluid">
+      <div class="row ">
+        <!-- =================================================
+             Main Account
+        ================================================== -->
+
+        <div class="main col-12 col-m-12 col-lg-6">
+          <div class="main-account bg-white rounded-4 p-3">
+            <!-- Header -->
+            <div class="ac-main-head d-flex align-items-center gap-2 mb-4">
+              <i class="fa-regular fa-folder text-primary"></i>
+
+              <h2 class="m-0 fw-bold">الحساب الرئيسي</h2>
+            </div>
+
+            <!-- Fields -->
+            <div class="row g-3">
+              <!-- Parent Account Name -->
+              <div class="col-12 col-md-6">
+                <label class="form-label small fw-bold"> اسم حساب الأب </label>
+
+                <div class="account-select position-relative">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [value]="selectedParentName"
+                    placeholder="اختر حساب الأب"
+                    readonly
+                    [class.is-invalid]="isInvalid('parentAccountId')"
+                    (click)="parentDropdownOpen = !parentDropdownOpen"
+                  />
+
+                  <!-- Arrow -->
+                  <i
+                    class="fa-solid fa-chevron-down position-absolute top-50 translate-middle-y"
+                    [class.fa-chevron-up]="parentDropdownOpen"
+                    (click)="parentDropdownOpen = !parentDropdownOpen"
+                  ></i>
+
+                  <!-- Parent Validation -->
+                  @if (isInvalid('parentAccountId')) {
+                    <div class="invalid-feedback d-block">
+                      {{ getErrorMessage('parentAccountId') }}
+                    </div>
+                  }
+
+                  <!-- Parent Dropdown -->
+                  @if (parentDropdownOpen) {
+                    <div
+                      class="account-dropdown position-absolute start-0 end-0 bg-white border rounded-3 shadow-sm"
+                    >
+                      @for (account of parentAccounts; track account.id) {
+                        <button
+                          type="button"
+                          class="account-option btn w-100 d-flex align-items-center justify-content-between text-end"
+                          (click)="selectParentAccount(account)"
+                        >
+                          <span>
+                            {{ account.name }}
+                          </span>
+
+                          <small>
+                            {{ account.code }}
+                          </small>
+                        </button>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <!-- Parent Account Number -->
+              <div class="col-12 col-md-6">
+                <label class="form-label small fw-bold"> رقم حساب الأب </label>
+
+                <span class="account-number form-control d-flex align-items-center">
+                  {{ selectedParentCode || '---' }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- =================================================
+               Sub Account
+          ================================================== -->
+
+          <div class="sub-account bg-white rounded-4 p-3">
+            <!-- Header -->
+            <div class="sub-account-header d-flex align-items-center gap-2 mb-4">
+              <i class="fa-regular fa-file"></i>
+
+              <h2 class="mb-0">الحساب الفرعي</h2>
+            </div>
+
+            <!-- Account Name + Child Account Number -->
+            <div class="row g-3 mb-3">
+              <!-- Account Name -->
+              <div class="col-12 col-md-8">
+                <label class="form-label"> اسم الحساب </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="accountName"
+                  placeholder="أدخل اسم الحساب"
+                  [class.is-invalid]="isInvalid('accountName')"
+                />
+
+                @if (isInvalid('accountName')) {
+                  <div class="invalid-feedback d-block">
+                    {{ getErrorMessage('accountName') }}
+                  </div>
+                }
+              </div>
+
+              <!-- Child Account Number -->
+              <div class="col-12 col-md-4">
+                <label class="form-label"> رقم حساب الابن </label>
+
+                <span class="form-control account-number d-flex align-items-center">
+                  {{ childAccountNumber || '---' }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Branch / Account Group / Status -->
+            <div class="row g-3 mb-3">
+              <!-- Branch -->
+              <div class="col-12 col-md-4">
+                <label class="form-label"> الفرع </label>
+
+                <div class="select-wrapper">
+                  <select
+                    class="form-select"
+                    formControlName="branchId"
+                    [class.is-invalid]="isInvalid('branchId')"
+                  >
+                    <option [ngValue]="null">اختر الفرع</option>
+
+                    <option [ngValue]="1">الفرع الرئيسي</option>
+
+                    <option [ngValue]="2">فرع القاهرة</option>
+
+                    <option [ngValue]="3">فرع المنصورة</option>
+                  </select>
+
+                  <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+
+                @if (isInvalid('branchId')) {
+                  <div class="invalid-feedback d-block">
+                    {{ getErrorMessage('branchId') }}
+                  </div>
+                }
+              </div>
+
+              <!-- Account Group -->
+              <div class="col-12 col-md-4">
+                <label class="form-label"> مجموعة الحساب </label>
+
+                <div class="select-wrapper">
+                  <select
+                    class="form-select"
+                    formControlName="accountGroupId"
+                    [class.is-invalid]="isInvalid('accountGroupId')"
+                  >
+                    <option [ngValue]="null">اختر مجموعة الحساب</option>
+
+                    <option [ngValue]="1">الأصول</option>
+
+                    <option [ngValue]="2">الخصوم</option>
+
+                    <option [ngValue]="3">المصروفات</option>
+                  </select>
+
+                  <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+
+                @if (isInvalid('accountGroupId')) {
+                  <div class="invalid-feedback d-block">
+                    {{ getErrorMessage('accountGroupId') }}
+                  </div>
+                }
+              </div>
+
+              <!-- Account Status -->
+              <div class="col-12 col-md-4">
+                <label class="form-label"> حالة الحساب </label>
+
+                <div class="select-wrapper">
+                  <select
+                    class="form-select"
+                    formControlName="accountStatus"
+                    [class.is-invalid]="isInvalid('accountStatus')"
+                  >
+                    <option value="active">نشط</option>
+
+                    <option value="inactive">غير نشط</option>
+                  </select>
+
+                  <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+
+                @if (isInvalid('accountStatus')) {
+                  <div class="invalid-feedback d-block">
+                    {{ getErrorMessage('accountStatus') }}
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Account Nature / Final Account -->
+            <div class="row g-3 mb-3">
+              <!-- Account Nature -->
+              <div class="col-12 col-md-6">
+                <label class="form-label"> طبيعة الحساب </label>
+
+                <div class="select-wrapper">
+                  <select
+                    class="form-select"
+                    formControlName="accountNature"
+                    [class.is-invalid]="isInvalid('accountNature')"
+                  >
+                    <option [ngValue]="null">اختر طبيعة الحساب</option>
+
+                    <option value="debit">مدين</option>
+
+                    <option value="credit">دائن</option>
+                  </select>
+
+                  <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+
+                @if (isInvalid('accountNature')) {
+                  <div class="invalid-feedback d-block">
+                    {{ getErrorMessage('accountNature') }}
+                  </div>
+                }
+              </div>
+
+              <!-- Final Account -->
+              <div class="col-12 col-md-6">
+                <label class="form-label"> الحساب الختامي </label>
+
+                <div class="select-wrapper">
+                  <select
+                    class="form-select"
+                    formControlName="finalAccount"
+                    [class.is-invalid]="isInvalid('finalAccount')"
+                  >
+                    <option [ngValue]="null">اختر الحساب الختامي</option>
+
+                    <option value="income">قائمة الدخل</option>
+
+                    <option value="balance">الميزانية</option>
+                  </select>
+
+                  <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+
+                @if (isInvalid('finalAccount')) {
+                  <div class="invalid-feedback d-block">
+                    {{ getErrorMessage('finalAccount') }}
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Phone / Fax -->
+            <div class="row g-3 mb-3">
+              <!-- Phone -->
+              <div class="col-12 col-md-6">
+                <label class="form-label"> رقم الجوال </label>
+
+                <input
+                  type="tel"
+                  class="form-control"
+                  formControlName="phone"
+                  placeholder="أدخل رقم الجوال"
+                  [class.is-invalid]="isInvalid('phone')"
+                />
+
+                @if (isInvalid('phone')) {
+                  <div class="invalid-feedback d-block">
+                    {{ getErrorMessage('phone') }}
+                  </div>
+                }
+              </div>
+
+              <!-- Fax -->
+              <div class="col-12 col-md-6">
+                <label class="form-label"> رقم الفاكس </label>
+
+                <input
+                  type="tel"
+                  class="form-control"
+                  formControlName="fax"
+                  placeholder="أدخل رقم الفاكس"
+                  [class.is-invalid]="isInvalid('fax')"
+                />
+
+                @if (isInvalid('fax')) {
+                  <div class="invalid-feedback d-block">
+                    {{ getErrorMessage('fax') }}
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-0">
+              <label class="form-label"> الوصف </label>
+
+              <textarea
+                class="form-control"
+                rows="4"
+                formControlName="description"
+                placeholder="أدخل وصف الحساب"
+                [class.is-invalid]="isInvalid('description')"
+              ></textarea>
+
+              @if (isInvalid('description')) {
+                <div class="invalid-feedback d-block">
+                  {{ getErrorMessage('description') }}
+                </div>
+              }
+            </div>
+
+          </div>
+        </div>
+
+        <!-- =================================================
+             Tree
+        ================================================== -->
+
+        <div class="tree col-12 col-m-12 col-lg-6">
+          <div class="card shadow-sm border-0 rounded-4 overflow-hidden" dir="rtl">
+            <!-- Header -->
+            <div
+              class="card-header bg-white border-bottom d-flex align-items-center justify-content-between px-3 py-2"
+            >
+              <!-- Title -->
+              <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-folder-tree text-primary"></i>
+
+                <h2 class="mb-0 fw-bold">الشجرة</h2>
+              </div>
+
+              <!-- Refresh -->
+              <button
+                type="button"
+                class="btn btn-sm d-inline-flex align-items-center justify-content-center gap-2 tree-refresh"
+              >
+                <span> تحديث </span>
+
+                <i class="fa-solid fa-rotate-right"></i>
+              </button>
+            </div>
+
+            <!-- Body -->
+            <div class="card-body p-2">
+              <div class="tree-card-body d-flex flex-column gap-1">
+                @for (item of treeItem; track $index) {
+                  <div
+                    class="tree-item d-flex align-items-center justify-content-between rounded-3 px-3 py-2"
+                  >
+                    <!-- Account -->
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="fa-solid fa-file-lines tree-item-icon"></i>
+
+                      <span>
+                        {{ item.word }}
+                      </span>
+                    </div>
+
+                    <!-- Arrow -->
+                    <i class="fa-solid fa-chevron-left tree-item-arrow"></i>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

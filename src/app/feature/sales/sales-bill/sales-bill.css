@@ -1,0 +1,26 @@
+.return , .print {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 8px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #e7f4fb;
+  border: 1px solid #d5ebf5;
+  color: #1289b8;
+
+  transition: all 0.2s ease;
+}
+
+.return i , .print i {
+  font-size: 10px;
+}
+
+.return:hover , .print:hover{
+  background-color: #1289b8;
+  border-color: #1289b8;
+  color: #fff;
+}

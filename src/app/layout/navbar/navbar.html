@@ -1,0 +1,101 @@
+<nav class="cont-nav border-bottom">
+  <section class="container-fluid px-1 px-md-4">
+    <div class="navbar-inner">
+      <!-- =========================
+           Left - User Menu
+      ========================== -->
+
+      <div class="navbar-user" dir="rtl">
+        <!-- Toggle Button -->
+        <button
+          type="button"
+          class="user-dropdown-btn d-flex align-items-center gap-2"
+          (click)="toggleUserMenu()"
+          [attr.aria-expanded]="isOpenMenu"
+        >
+          <img
+            src="../../../assets/images/admin.jpg"
+            alt="Admin"
+            class="rounded-circle bg-light"
+            width="40"
+            height="40"
+          />
+
+          <div class="box">
+            <div class="text-end">
+              <div class="fw-semibold text-secondary admin">admin</div>
+
+              <p class="text-secondary mb-0 small main">الفرع الرئيسي</p>
+            </div>
+          </div>
+
+          <!-- Arrow -->
+          <i class="fa-solid fa-chevron-down user-arrow" [class.rotate]="isOpenMenu"></i>
+        </button>
+
+        <!-- =========================
+             User Dropdown
+        ========================== -->
+
+        @if (isOpenMenu) {
+          <div class="user-dropdown-menu bg-white rounded-3 shadow-sm" dir="ltr">
+            <!-- Profile -->
+            <a
+              class="dropdown-item d-flex align-items-center justify-content-between gap-2 rounded-2"
+              routerLink="/profile"
+              (click)="isOpenMenu = false"
+            >
+              <span>الملف الشخصي</span>
+
+              <i class="fa-regular fa-user"></i>
+            </a>
+
+            <!-- Divider -->
+            <hr class="dropdown-divider my-1" />
+
+            <!-- Logout -->
+            <button
+              type="button"
+              class="dropdown-item logout-item d-flex align-items-center justify-content-between gap-2 rounded-2 border-0"
+              (click)="logout()"
+            >
+              <span>تسجيل الخروج</span>
+
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+          </div>
+        }
+      </div>
+
+      <!-- =========================
+           Right - Breadcrumb
+      ========================== -->
+
+      <div class="navbar-right d-flex align-items-center gap-2 text-secondary">
+        <!-- الرئيسية -->
+
+        <span class="breadcrumb-item-mobile Control-Panel" routerLink="/dashboard">
+          لوحة التحكم
+        </span>
+
+        <!-- Parent -->
+        @if (currentSection$ | async; as section) {
+          <span class="breadcrumb-item-mobile"> / </span>
+
+          <span class="fw-semibold breadcrumb-item-mobile">
+            {{ section }}
+          </span>
+        }
+      </div>
+
+      <button
+        type="button"
+        class="sidebar-toggle btn btn-light border-0"
+        (click)="toggleSidebar()"
+        aria-label="Toggle Sidebar"
+      >
+     <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+    </div>
+  </section>
+</nav>

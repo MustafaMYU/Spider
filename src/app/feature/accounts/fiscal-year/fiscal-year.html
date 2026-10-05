@@ -1,0 +1,79 @@
+<div class="container-fluid fiscal-year">
+  <form>
+    <div class="financial-year-header rounded-3 py-3">
+      <div
+        class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3"
+      >
+        <!-- Buttons -->
+        <div class="d-flex flex-column flex-sm-row gap-2">
+          <button type="button" class="btn financial-year-btn2">
+            <span>فتح سنة مالية بدون إغلاق</span>
+          </button>
+          <button type="button" class="btn financial-year-btn">
+            <span>إغلاق وفتح سنة مالية</span>
+          </button>
+        </div>
+
+        <!-- Title -->
+        <div class="d-flex align-items-center gap-3">
+          <h2 class="mb-0 fw-bold">فتح وإغلاق السنة المالية</h2>
+          <div class="financial-year-icon">
+            <i class="fa-solid fa-calendar-days"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div dir="rtl" class="fiscal-card-body">
+      <h2 class="fiscal-title">بيانات السنة المالية</h2>
+
+    <div class="fiscal-box row g-4">
+      <!-- تاريخ البداية -->
+      <div class="fiscal-text col-12 col-lg-6">
+        <label for="startDate" class="form-label"> تاريخ البداية </label>
+
+        <input
+          id="startDate"
+          type="text"
+          class="form-control fiscal-input"
+          value="01/01/2026"
+          readonly
+        />
+      </div>
+
+      <!-- تاريخ النهاية -->
+      <div class="fiscal-text col-12 col-lg-6">
+        <label for="endDate" class="form-label"> تاريخ النهاية </label>
+
+        <input
+          id="endDate"
+          type="text"
+          class="form-control fiscal-input"
+          value="31/12/2026"
+          readonly
+        />
+      </div>
+
+      <!-- تاريخ بداية فتح السنة المالية -->
+      <div class="fiscal-text col-12 col-lg-6">
+        <label for="openDate" class="form-label"> تاريخ بداية فتح السنة المالية </label>
+
+        <input
+          id="openDate"
+          type="text"
+          class="form-control fiscal-input"
+          value="01/01/2026"
+          readonly
+        />
+      </div>
+    </div>
+
+    <!-- Checkbox -->
+    <div class="fiscal-check mt-4">
+      <input id="previousBalance" type="checkbox" class="form-check-input" />
+
+      <label for="previousBalance" class="form-check-label"> جلب الرصيد السابق </label>
+    </div>
+  </div>
+</div>

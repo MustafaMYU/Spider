@@ -1,0 +1,48 @@
+.app-layout {
+  min-height: 100vh;
+  width: 100%;
+}
+
+
+/* =========================
+   Content
+========================= */
+
+.app-content {
+  min-height: 100vh;
+  margin-right: 0;
+
+  transition: margin-right 0.25s ease;
+}
+
+
+/* =========================
+   Sidebar Open
+   Desktop
+========================= */
+
+.app-content.sidebar-open {
+  margin-right: 234px;
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 767px) {
+
+  .app-content {
+    margin-right: 0;
+    min-height: 100vh;
+  }
+
+  .app-content.sidebar-open {
+    margin-right: 0;
+  }
+
+}
+main{
+  background-color: #eaedef;
+}
+

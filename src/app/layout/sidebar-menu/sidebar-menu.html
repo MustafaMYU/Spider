@@ -1,0 +1,126 @@
+<aside
+  class="sidebar bg-white border-start shadow"
+  [class.open]="isOpen"
+  dir="rtl"
+>
+  <!-- Logo -->
+  <div class="sidebar-header">
+    <img
+      src="../../../assets/images/spider-logo.png"
+      alt="Spider Logo"
+    />
+  </div>
+
+  <!-- Menu -->
+  <div class="sidebar-content">
+    <div class="sidebar-menu p-2">
+
+      @for (item of sidebarItems; track item.title) {
+
+        @if (item.children) {
+
+          <div
+            class="menu-group mb-1"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: false }"
+          >
+
+            <!-- Parent -->
+            <button
+              type="button"
+              class="menu-item btn w-100 border-0 d-flex align-items-center justify-content-between px-3 py-2"
+              (click)="toggleItem(item)"
+            >
+
+              <div class="d-flex align-items-center gap-2">
+
+                <i
+                  [class]="item.icon"
+                  class="sideIcon"
+                ></i>
+
+                <span>
+                  {{ item.title }}
+                </span>
+
+              </div>
+
+              <i
+                class="fa-solid"
+                [class.fa-chevron-down]="!item.expanded"
+                [class.fa-chevron-up]="item.expanded"
+              ></i>
+
+            </button>
+
+            <!-- Children -->
+            @if (item.expanded) {
+
+              <div class="submenu mt-1">
+
+                @for (child of item.children; track child.title) {
+
+                  <a
+                    class="submenu-item d-flex align-items-center gap-2 text-decoration-none px-3 py-2"
+                    [routerLink]="child.route"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                  >
+
+                    <span>
+                      {{ child.title }}
+                    </span>
+
+                  </a>
+
+                }
+
+              </div>
+
+            }
+
+          </div>
+
+        } @else {
+
+          <!-- Normal Item -->
+          <a
+            class="menu-item d-flex align-items-center gap-2 text-decoration-none px-3 py-2 mb-1"
+            [routerLink]="item.route"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+
+            <i [class]="item.icon"></i>
+
+            <span>
+              {{ item.title }}
+            </span>
+
+          </a>
+
+        }
+
+      }
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="sidebar-footer">
+
+    <div class="footer-head">
+
+      <span class="erp-name">
+        SUPER ERP
+      </span>
+
+      <span class="erp-version">
+        v1.26.09.2026
+      </span>
+
+    </div>
+
+  </div>
+
+</aside>

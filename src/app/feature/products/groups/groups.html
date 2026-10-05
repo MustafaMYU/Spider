@@ -1,0 +1,128 @@
+<div class="categore-cont container-fluid" dir="rtl">
+  <div class="title d-flex align-items-center justify-content-start gap-3">
+    <span class="p-2 rounded-2">
+      <i class="fa-solid fa-layer-group"></i>
+    </span>
+
+    <h5 class="fw-bold mb-0">المجموعات</h5>
+  </div>
+
+  <!-- start header  -->
+
+  <form>
+    <div class="header mt-4 bg-white">
+      <p class="mb-2">اسم المجموعة</p>
+
+      <div class="headerMobile d-flex justify-content-between align-items-center gap-4">
+        <!-- Search -->
+        <div class="search-box flex-grow-1">
+          <input type="text" class="form-control" placeholder="ادخل اسم المجموعة" />
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group d-flex align-items-center gap-3">
+          <button type="button" class="btn addButton">
+            إضافة
+            <span>+</span>
+          </button>
+
+          <button type="button" class="btn newButton">جديد</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- end header -->
+  <!-- start body -->
+
+  <div class="body mt-2 bg-white rounded-4">
+    <div class="body-head d-flex justify-content-between align-items-center">
+      <h3>قائمة المجموعات</h3>
+
+      <div class="position-relative w-25">
+        <i
+          class="fa-solid fa-magnifying-glass position-absolute top-50 translate-middle-y me-3 text-muted"
+        ></i>
+
+        <input type="text" class="form-control pe-5" placeholder="ابحث باسم المجموعة" />
+      </div>
+    </div>
+
+
+    <div class="table-responsive">
+      <table class="table units-table text-center align-middle">
+        <thead>
+          <tr>
+            <th class="serial-col">م</th>
+            <th class="unit-col">اسم المجموعة</th>
+            <th class="actions-col">الإجراءات</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (item of items; track item.series) {
+            <tr>
+              <td>{{ item.series }}</td>
+              <td>{{ item.unitName }}</td>
+
+              <td>
+                <div class="actions">
+                  <button type="button" class="btn btn-sm update" title="تعديل">
+                    <i class="fa-solid fa-pen"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-sm delete" title="حذف">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- footer body -->
+    <div class="foooter">
+      <div class="pagination-controls">
+        <button
+          type="button"
+          class="page-btn"
+          [disabled]="currentPage === 1"
+          (click)="previousPage()"
+          title="الصفحة السابقة"
+        >
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <div class="current-page">
+          {{ currentPage }}
+        </div>
+
+        <button
+          type="button"
+          class="page-btn"
+          [disabled]="currentPage === totalPages"
+          (click)="nextPage()"
+          title="الصفحة التالية"
+        >
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      </div>
+
+      <div class="page-size">
+        <div class="select-wrapper">
+          <select class="form-select" [(ngModel)]="pageSize" (change)="changePageSize()">
+            <option [ngValue]="50">50</option>
+            <option [ngValue]="100">100</option>
+            <option [ngValue]="250">250</option>
+          </select>
+
+          <i class="fa-solid fa-chevron-down select-icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- end body -->
+</div>

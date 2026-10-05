@@ -1,0 +1,321 @@
+/* =========================
+   Navbar Container
+========================= */
+
+.cont-nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dee2e6;
+  z-index: 2000;
+}
+
+
+/* =========================
+   Navbar Inner
+========================= */
+
+.navbar-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  direction: ltr;
+}
+
+
+/* =========================
+   User
+========================= */
+
+.navbar-user {
+  position: relative;
+  flex-shrink: 0;
+  margin-left: 15px;
+}
+
+
+/* =========================
+   User Text
+========================= */
+
+.box {
+  display: flex;
+  flex-direction: column;
+}
+
+.box p {
+  margin: 0;
+}
+
+
+/* =========================
+   Right Section
+========================= */
+
+.navbar-right {
+  flex-shrink: 0;
+  padding-right: 55px;
+  white-space: nowrap;
+  direction: rtl;
+  display: flex;
+  align-items: center;
+}
+
+
+/* =========================
+   Sidebar Button
+========================= */
+
+.sidebar-toggle {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: none;
+  background-color: transparent;
+  z-index: 2100;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+  background-color: #f1f3f5;
+}
+
+.sidebar-toggle i {
+  font-size: 18px;
+}
+
+
+/* =========================
+   Breadcrumb
+========================= */
+
+.breadcrumb-item-mobile {
+  font-size: 11px;
+  color: #6c757d;
+  font-weight: bold;
+}
+
+.Control-Panel {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.Control-Panel:hover {
+  color: #0f3059;
+}
+
+
+/* =========================
+   User Button
+========================= */
+
+.user-dropdown-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.user-dropdown-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.user-dropdown-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+/* =========================
+   User Arrow
+========================= */
+
+.user-arrow {
+  font-size: 11px;
+  color: #777;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.user-dropdown-btn:hover .user-arrow {
+  color: #333;
+}
+
+.user-arrow.rotate {
+  transform: rotate(180deg);
+}
+
+
+/* =========================
+   User Dropdown
+========================= */
+
+.user-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 15px);
+  right: 10px;
+  width: 130px;
+  padding: 8px;
+  margin: 0;
+  background-color: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+  text-align: right;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  z-index: 3000;
+}
+
+
+/* =========================
+   Dropdown Item
+========================= */
+
+.user-dropdown-menu .dropdown-item {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  direction: rtl;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: #444;
+  text-decoration: none;
+  text-align: right;
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.2s ease;
+}
+
+.user-dropdown-menu .dropdown-item:hover {
+  color: #ffffff;
+  background-color: #0f3059;
+}
+
+
+/* =========================
+   Dropdown Icons
+========================= */
+
+.user-dropdown-menu .dropdown-item i {
+  width: 10px;
+  font-size: 10px;
+  text-align: center;
+  direction: ltr;
+}
+
+.logout-item i {
+  transform: scaleX(-1);
+  margin-right: 5px;
+}
+
+
+/* =========================
+   Divider
+========================= */
+
+.user-dropdown-menu .dropdown-divider {
+  height: 1px;
+  margin: 6px 0;
+  background-color: #eeeeee;
+  border: none;
+}
+
+
+/* =========================
+   User Image
+========================= */
+
+.user-dropdown-btn img {
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+
+/* =========================
+   Admin
+========================= */
+
+.admin {
+  font-size: 14px;
+}
+
+.main {
+  font-size: 10px;
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 767px) {
+
+  .sidebar-toggle {
+    right: 4px;
+  }
+
+  .navbar-right {
+    padding-right: 50px;
+  }
+
+  .breadcrumb-item-mobile {
+    display: none;
+  }
+
+  .navbar-user {
+    margin-left: 0;
+    margin-right: 5px;
+  }
+
+  .user-dropdown-btn img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .box .fw-semibold {
+    font-size: 13px;
+  }
+
+  .box p {
+    font-size: 11px !important;
+  }
+}
+/* =========================
+   Small Mobile
+========================= */
+
+@media (max-width: 480px) {
+
+  .box {
+    display: none;
+  }
+
+  .user-dropdown-menu {
+    right: -68px;
+    width: 140px;
+  }
+}

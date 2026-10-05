@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f7fa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to bottom,
+    #0c506e,
+    #08374c
+  );
+  border-radius: 5px;
+}
+input::placeholder,
+textarea::placeholder {
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+@media (max-width: 767px) {
+  .app-content {
+    min-height: 100vh;
+    height: auto;
+    padding-bottom: 40px;
+  }
+
+  .dashboard {
+    padding-bottom: 40px;
+  }
+}
+
+* {
+  font-family: 'Cairo', sans-serif;
+}
+
+option{
+  font-size: 10px;
+}
+
+label{
+  font-size: 10px;
+}
+

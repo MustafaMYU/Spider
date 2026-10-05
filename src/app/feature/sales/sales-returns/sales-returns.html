@@ -1,0 +1,157 @@
+<div class="categore-cont container-fluid py-3" dir="rtl">
+  <!-- Title -->
+  <div class="d-flex align-items-center justify-content-between gap-3 mb-4">
+    <h5 class="title fw-bold mb-0 page-title">مستكشف مرتجعات المبيعات</h5>
+
+    <button type="button" class="btn addButton gap-2 px-5">
+      <span>إضافة مرتجعات مبيعات </span>
+      <span class="plus-icon">+</span>
+    </button>
+  </div>
+
+  <!-- Search Header -->
+  <div class="row g-3 align-items-center mb-3">
+    <!-- Search -->
+    <div class="col-12 col-lg">
+      <div class="search-box position-relative">
+        <input type="text" class="form-control search-input" [placeholder]="searchPlaceholder" />
+        <div class="search-type-dropdown">
+          <!-- Button -->
+          <button
+            type="button"
+            class="search-type-button"
+            (click)="searchTypeOpen = !searchTypeOpen"
+          >
+            <i class="fa-solid fa-bars"></i>
+
+            <i
+              class="fa-solid"
+              [class.fa-chevron-down]="!searchTypeOpen"
+              [class.fa-chevron-up]="searchTypeOpen"
+            ></i>
+          </button>
+
+          <!-- Dropdown -->
+          @if (searchTypeOpen) {
+            <div class="search-type-menu">
+              <button
+                type="button"
+                [class.active]="searchType === 'code'"
+                (click)="selectSearchType('code')"
+              >
+                بحث بالكود
+              </button>
+
+              <button
+                type="button"
+                [class.active]="searchType === 'name'"
+                (click)="selectSearchType('name')"
+              >
+                اسم العميل
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="col-12 col-lg-auto">
+      <div class="d-flex align-items-center justify-content-center gap-2">
+        <!-- Search -->
+        <button
+          type="button"
+          class="btn addButton search-btn d-inline-flex align-items-center justify-content-center gap-2"
+        >
+          <span>بحث</span>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+
+        <!-- Clear -->
+        <button
+          type="button"
+          class="btn newButton search-btn d-inline-flex align-items-center justify-content-center gap-2"
+        >
+          <span>مسح الفلاتر</span>
+          <i class="fa-solid fa-filter-circle-xmark"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table Card -->
+  <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table table-hover text-center align-middle mb-0 units-table">
+        <thead>
+          <tr>
+            <th>م</th>
+            <th>رقم طلب المرتجع</th>
+            <th>التاريخ</th>
+            <th>العميل</th>
+            <th>رقم الجوال</th>
+            <th>نوع الفاتورة</th>
+            <th>الصافي</th>
+            <th>الادوات</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr class="empty-row">
+            <td colspan="100%">
+              <div class="cont-body">
+                <h2>لم يتم إضافة مرتجعات مبيعات</h2>
+                <p>لم يتم إضافة مرتجعات مبيعات بعد</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        >
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <div
+      class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 px-3 py-3 border-top footer"
+    >
+      <!-- Pagination -->
+      <div class="d-flex align-items-center gap-2">
+        <button
+          type="button"
+          class="btn page-btn"
+          [disabled]="currentPage === 1"
+          (click)="previousPage()"
+          title="الصفحة السابقة"
+        >
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <div class="current-page">
+          {{ currentPage }}
+        </div>
+
+        <button
+          type="button"
+          class="btn page-btn"
+          [disabled]="currentPage === totalPages"
+          (click)="nextPage()"
+          title="الصفحة التالية"
+        >
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      </div>
+
+      <!-- Page Size -->
+      <div class="position-relative page-size">
+        <select class="form-select page-select" [(ngModel)]="pageSize" (change)="changePageSize()">
+          <option [ngValue]="50">50</option>
+          <option [ngValue]="100">100</option>
+          <option [ngValue]="250">250</option>
+        </select>
+
+        <i class="fa-solid fa-chevron-down select-icon"></i>
+      </div>
+    </div>
+  </div>
+</div>

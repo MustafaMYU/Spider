@@ -1,0 +1,154 @@
+/* =========================
+   Financial Year Header
+========================= */
+.fiscal-year{
+  height: calc(100vh - 60px);
+}
+.financial-year-header {
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* =========================
+   Title
+========================= */
+
+.financial-year-header h2 {
+  font-size: 14px;
+  color: #212529;
+}
+
+.financial-year-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background-color: rgba(19, 122, 168, 0.1);
+  color: #137aa8;
+
+  font-size: 10px;
+}
+
+/* =========================
+   Buttons
+========================= */
+.financial-year-btn2 ,  .financial-year-btn{
+  min-height: 42px;
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  transition: 0.2s ease;
+}
+.financial-year-btn {
+
+
+  background-color: #137aa8;
+  border: 1px solid #137aa8;
+
+  color: #fff;
+
+}
+.financial-year-btn2{
+      background-color: white;
+  border: 1px solid #137aa8;
+
+  color: #137aa8;
+
+}
+
+/* =========================
+   Fiscal Card Body
+========================= */
+
+.fiscal-card-body {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+/* =========================
+   Title
+========================= */
+
+.fiscal-title {
+  margin: 0 0 24px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #212529;
+}
+
+/* =========================
+   Labels
+========================= */
+
+.fiscal-text .form-label,
+.fiscal-check .form-check-label {
+  margin-bottom: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* =========================
+   Read Only Inputs
+========================= */
+
+.fiscal-input {
+  min-height: 42px;
+
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+
+  color: #495057;
+  font-size: 10px;
+
+  cursor: default;
+}
+
+.fiscal-input:focus {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  box-shadow: none;
+}
+
+/* =========================
+   Checkbox
+========================= */
+
+.fiscal-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fiscal-check .form-check-input {
+  width: 18px;
+  height: 18px;
+
+  margin: 0;
+
+  cursor: pointer;
+}
+
+.fiscal-check .form-check-input:checked {
+  background-color: #137aa8;
+  border-color: #137aa8;
+}
+
+.fiscal-check .form-check-label {
+  margin: 0;
+  cursor: pointer;
+}
